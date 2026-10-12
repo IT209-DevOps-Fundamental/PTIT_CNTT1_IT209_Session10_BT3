@@ -1,0 +1,14 @@
+# Single-stage Dockerfile: Không tách biệt môi trường build và runtime
+FROM node:18-slim
+
+WORKDIR /app
+
+# Copy toàn bộ mã nguồn (chưa tối ưu hóa layer cache)
+COPY . .
+
+# Cài đặt thư viện dependencies (lưu lại toàn bộ npm cache và build metadata)
+RUN npm install
+
+EXPOSE 3000
+
+CMD ["node", "server.js"]
